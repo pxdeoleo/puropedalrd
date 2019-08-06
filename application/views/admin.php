@@ -1,5 +1,9 @@
 <?php
 plantilla::aplicar();
+
+if (isset($_POST)) {
+	# code...
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,100 +17,35 @@ plantilla::aplicar();
     <title>Document</title>
 </head>
 <body>
-    <!-- SLIDER -->
-<header class="masthead">
-<!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-2" data-slide-to="1"></li>
-    <li data-target="#carousel-example-2" data-slide-to="2"></li>
-  </ol>
-  <!--/.Indicators-->
-  <!--Slides-->
-  <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <div class="view">
-        <img class="d-block w-100" src="base/img/header-bg.jpg"
-          alt="First slide">
-        <div class="mask rgba-black-light"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">Light mask</h3>
-        <p>First text</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-          alt="Second slide">
-        <div class="mask rgba-black-strong"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">Strong mask</h3>
-        <p>Secondary text</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-          alt="Third slide">
-        <div class="mask rgba-black-slight"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">Slight mask</h3>
-        <p>Third text</p>
-      </div>
-    </div>
-  </div>
-  <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
-</div>
-<!--/.Carousel Wrapper-->
-</header>
-<br>
-<br>
-
-<?php
-  $noticias = $this->noticias_model->ultNoticias();
-?>
-<div class='card-group col-md-8'>
-  <?php
-    foreach ($noticias as $clave => $noticia) {
-      # code...
-      echo<<<NOTICIA
-      <div class="card">
-		  <a href="noticias/{$noticia['id_noticia']}">
-		  <img class="card-img-top" src="{$noticia['foto']}" height='160' alt="{$noticia['asunto']}">
-		  </a>
-        <div class="card-body">
-          <h5 class="card-title">{$noticia['asunto']}</h5>
-          <p class="card-text">{$noticia['contenido']}</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-
-NOTICIA;
-    }
-  ?>
-</div>
-
-
-    
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form action="post">
+		<div class="container">
+			<div class="form-group">
+				<div class='input-group'>
+					<?=asgInput('asunto', 'Asunto')?>
+				</div>
+				<br>
+				<div class="input-group">
+					<div class="input-group-prepend">
+							<span class="input-group-text">Imagen</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" required="" name="foto" class="custom-file-input" id="inputGroupFile01">
+							<label class="custom-file-label" for="inputGroupFile01">Subir archivo</label>
+						</div>
+					</div>  
+				</div>
+				<label for="full-featured">Contenido</label>
+				<textarea id="full-featured">
+				</textarea>
+			</div>	
+		</div>
+		<button type="submit" class="btn btn-primary">Subir</button>
+	</form>
 </body>
 
 <style>
@@ -119,6 +58,64 @@ NOTICIA;
   
   }
 </style>
+<script>
+    
+
+	tinymce.init({
+	  selector: 'textarea#full-featured',
+	  plugins: 'print preview fullpage powerpaste searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount tinymcespellchecker a11ychecker imagetools textpattern help formatpainter permanentpen pageembed tinycomments mentions linkchecker',
+	  toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | addcomment',
+	  image_advtab: true,
+	  content_css: [
+		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+		'//www.tiny.cloud/css/codepen.min.css'
+	  ],
+	  link_list: [
+		{ title: 'My page 1', value: 'http://www.tinymce.com' },
+		{ title: 'My page 2', value: 'http://www.moxiecode.com' }
+	  ],
+	  image_list: [
+		{ title: 'My page 1', value: 'http://www.tinymce.com' },
+		{ title: 'My page 2', value: 'http://www.moxiecode.com' }
+	  ],
+	  image_class_list: [
+		{ title: 'None', value: '' },
+		{ title: 'Some class', value: 'class-name' }
+	  ],
+	  importcss_append: true,
+	  height: 400,
+	  file_picker_callback: function (callback, value, meta) {
+		/* Provide file and text for the link dialog */
+		if (meta.filetype === 'file') {
+		  callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+		}
+	
+		/* Provide image and alt text for the image dialog */
+		if (meta.filetype === 'image') {
+		  callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+		}
+	
+		/* Provide alternative source and posted for the media dialog */
+		if (meta.filetype === 'media') {
+		  callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+		}
+	  },
+	  templates: [
+		{ title: 'Some title 1', description: 'Some desc 1', content: 'My content' },
+		{ title: 'Some title 2', description: 'Some desc 2', content: '<div class="mceTmpl"><span class="cdate">cdate</span><span class="mdate">mdate</span>My content2</div>' }
+	  ],
+	  template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
+	  template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
+	  image_caption: true,
+	  spellchecker_dialog: true,
+	  spellchecker_whitelist: ['Ephox', 'Moxiecode'],
+	  tinycomments_mode: 'embedded',
+	  mentions_fetch: mentionsFetchFunction,
+	  content_style: '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }'
+	 });
+	
+	
+	</script>
 <script>
 
 	$(document).ready(function() {
