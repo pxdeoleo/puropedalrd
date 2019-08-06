@@ -14,7 +14,7 @@ plantilla::aplicar();
 </head>
 <body>
     <!-- SLIDER -->
-<header class="masthead">
+<div class="container">
 <!--Carousel Wrapper-->
 <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
   <!--Indicators-->
@@ -28,7 +28,7 @@ plantilla::aplicar();
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
       <div class="view">
-        <img class="d-block w-100" src="base/img/header-bg.jpg"
+        <img class="d-block w-100" src="http://www.younextbike.com/wp-content/uploads/2018/10/ciclismo-oto%C3%B1o-1024x683.jpg"
           alt="First slide">
         <div class="mask rgba-black-light"></div>
       </div>
@@ -75,7 +75,8 @@ plantilla::aplicar();
   <!--/.Controls-->
 </div>
 <!--/.Carousel Wrapper-->
-</header>
+</div>
+
 <br>
 <br>
 
@@ -109,12 +110,13 @@ NOTICIA;
 
 <style>
   .carousel-inner img {
-      width: 100%;
-      max-height: 460px;
+      width: 640px;
+      max-height: 400px;
+	  margin: auto;
   }
 
-  .carousel-inner{
-  
+  .carousel {
+	  margin-top: 105px;
   }
 </style>
 <script>
