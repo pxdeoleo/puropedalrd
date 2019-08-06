@@ -19,6 +19,24 @@ class Noticias_model extends CI_Model {
         return $noticia;
     }
 
+    public function getImagen($id){
+        $ruta="../imagenes/";//ruta carpeta donde queremos copiar las imágenes
+        $uploadfile_temporal=$_FILES['archivo']['tmp_name'];
+        $uploadfile_nombre=$ruta.$_FILES['archivo']['name'];
+
+        if (is_uploaded_file($uploadfile_temporal))
+        {
+            move_uploaded_file($uploadfile_temporal,$uploadfile_nombre);
+            return true;
+        }
+        else
+        {
+        
+        return false;
+        }  
+    }
+    
+
 }
 
 /* End of file Noticias_model.php */
