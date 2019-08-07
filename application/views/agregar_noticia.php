@@ -1,8 +1,10 @@
 <?php
 plantilla::aplicar();
 
-if (isset($_POST)) {
-	
+if (isset($_POST['asunto']) && isset($_FILES['foto'])) {
+	# code...
+	$this->noticias_model->guardarNoticia($_POST, $_FILES['foto']);
+	$_POST=array();
 }
 ?>
 <!DOCTYPE html>
@@ -21,13 +23,33 @@ if (isset($_POST)) {
 	<br>
 	<br>
 	<br>
-	<form action="post">
+	<form method='post' enctype="multipart/form-data">
 		<div class="container">
 			<div class="form-group">
-				
+				<div class='input-group'>
+					<?=asgInput('asunto', 'Asunto', ['required'=>'required'])?>
+				</div>
+				<br>
+				<div class="input-group">
+					<div class="input-group-prepend">
+							<span class="input-group-text">Imagen</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" required name="foto" class="custom-file-input" id="inputGroupFile01">
+							<label class="custom-file-label" for="inputGroupFile01">Subir archivo</label>
+						</div>
+					</div>  
+				</div>
+				<label for="full-featured">Contenido</label>
+				<textarea name='contenido' style="height:200px" id="full-featured">
+				</textarea>
+
+				<br>
+
+				<button type="submit" class="btn btn-primary float-right">Subir</button>
+
 			</div>	
 		</div>
-		<button type="submit" class="btn btn-primary">Subir</button>
 	</form>
 </body>
 
@@ -43,7 +65,6 @@ if (isset($_POST)) {
 </style>
 <script>
     
-
 	tinymce.init({
 	  selector: 'textarea#full-featured',
 	  plugins: 'print preview fullpage powerpaste searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount tinymcespellchecker a11ychecker imagetools textpattern help formatpainter permanentpen pageembed tinycomments mentions linkchecker',

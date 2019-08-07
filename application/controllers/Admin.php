@@ -10,6 +10,11 @@ class Admin extends CI_Controller {
         $this->load->view('admin');
     }
 
+    public function noticias(){
+        $this->load->model('noticias_model');
+        $this->load->view('agregar_noticia');
+    }
+
 }
 
 /* End of file Controllername.php */
