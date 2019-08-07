@@ -20,6 +20,8 @@ class Eventos_model extends CI_Model {
         ->where('fecha >= now()')
         ->get('eventos')
         ->result_array();
+
+        return $eventos;
     }
 
 }
