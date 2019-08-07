@@ -1,5 +1,11 @@
 <?php
 plantilla::aplicar();
+
+if (isset($_POST['asunto']) && isset($_FILES['foto'])) {
+	# code...
+	$this->noticias_model->guardarNoticia($_POST, $_FILES['foto']);
+	$_POST=array();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,166 +16,110 @@ plantilla::aplicar();
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <title>Document</title>
 </head>
 <body>
-    <!-- SLIDER -->
-<header class="masthead">
-<!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-	<?php
-		$slides = $this->slider_model->getSlides();
-		$tmp = 0;
-		foreach ($slides as $clave => $slide) {
-			# code...
-
-			if($tmp==0){
-				$active = 'class="active"';
-			}else{
-				$active = "";
-			}
-			echo<<<DATA_SLIDE_TO
-			<li data-target="#carousel-example-2" data-slide-to="{$tmp}" {$active}></li>		
-DATA_SLIDE_TO;
-			$tmp++;
-		}
-	?>
-  </ol>
-  <!--/.Indicators-->
-
-	<?php
-
-
-	?>
-  <!--Slides-->
-  <div class="carousel-inner" role="listbox">
-
-	<?php
-	$tmp = true;
-	foreach ($slides as $clave => $slide) {
-		# code...
-		if($tmp){
-			$active = 'active';
-			$tmp = false;
-		}else{
-			$active = '';
-		}
-		echo<<<SLIDE
-		<div class="carousel-item {$active}" >
-			<div class="view">
-				<img class="d-block w-100" src="fotos/slider/{$slide['foto']}"
-				alt="{$slide['texto']}">
-				<div class="mask rgba-black-light"></div>
-			</div>
-			<div class="carousel-caption">
-				<h3 class="h3-responsive">{$slide['texto']}</h3>
-			</div>
-		</div>
-SLIDE;
-	}
-	?>
-  </div>
-  <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
-</div>
-<!--/.Carousel Wrapper-->
-</header>
-<br>
-<br>
-
-<?php
-  $noticias = $this->noticias_model->ultNoticias();
-?>
-	<div class='container'>
-		<div class="row">
-			<div class='col-9'>
-				<!-- Noticias recientes -->
-				<div class='card-group'>
-					<?php
-						foreach ($noticias as $clave => $noticia) {
-						# code...
-						$contenido = substr(strip_tags($noticia['contenido']), 0, 150);
-						echo<<<NOTICIA
-						<div class="card">
-							<a href="noticias/{$noticia['id_noticia']}">
-							<img class="card-img-top noti-thumb" src="fotos/noticias/{$noticia['foto']}" height='160' alt="{$noticia['asunto']}">
-							</a>
-							<div class="card-body">
-							<h5 class="card-title">{$noticia['asunto']}</h5>
-							<p class="card-text">{$contenido}...<a href="#"> Leer más...</a></p>
-							</div>
-							<div class="card-footer">
-							<small class="text-muted">{$noticia['fecha']}</small>
-							</div>
-						</div>
-
-NOTICIA;
-				}
-					?>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form method='post' enctype="multipart/form-data">
+		<div class="container">
+			<div class="form-group">
+				<div class='input-group'>
+					<?=asgInput('asunto', 'Asunto', ['required'=>'required'])?>
 				</div>
-			</div>
-			<div class="col-3 ml-auto">
-				<!-- Próximos eventos -->
-				<?php
-					$eventos = $this->eventos_model->ultEventos();
-					
-				?>
-				  <div id="accordion">
-					<div class="card">
-						<div class="card-header" id="headingOne">
-							<h5 class="mb-0">
-								<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-								Collapsible Group Item #1
-								</button>
-							</h5>
+				<br>
+				<div class="input-group">
+					<div class="input-group-prepend">
+							<span class="input-group-text">Imagen</span>
 						</div>
-						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-							<div class="card-body">
-								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-							</div>
+						<div class="custom-file">
+							<input type="file" required name="foto" class="custom-file-input" id="inputGroupFile01">
+							<label class="custom-file-label" for="inputGroupFile01">Subir archivo</label>
 						</div>
-					</div>
-					
+					</div>  
 				</div>
-			</div>
-		</div>
-	</div>
+				<label for="full-featured">Contenido</label>
+				<textarea name='contenido' style="height:200px" id="full-featured">
+				</textarea>
 
-    
+				<br>
+
+				<button type="submit" class="btn btn-primary float-right">Subir</button>
+
+			</div>	
+		</div>
+	</form>
 </body>
 
 <style>
-
-	.d-block {
-		width:100%;
-		height:100%;
-		object-fit: cover;
-		overflow: hidden;
-	}
-	.noti-thumb {
-		width:600;
-		height:400;
-		object-fit: cover;
-		overflow: hidden;
-	}
-
   .carousel-inner img {
       width: 100%;
       max-height: 460px;
   }
 
+  .carousel-inner{
+  
+  }
 </style>
+<script>
+    
+	tinymce.init({
+	  selector: 'textarea#full-featured',
+	  plugins: 'print preview fullpage powerpaste searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount tinymcespellchecker a11ychecker imagetools textpattern help formatpainter permanentpen pageembed tinycomments mentions linkchecker',
+	  toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | addcomment',
+	  image_advtab: true,
+	  content_css: [
+		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+		'//www.tiny.cloud/css/codepen.min.css'
+	  ],
+	  link_list: [
+		{ title: 'My page 1', value: 'http://www.tinymce.com' },
+		{ title: 'My page 2', value: 'http://www.moxiecode.com' }
+	  ],
+	  image_list: [
+		{ title: 'My page 1', value: 'http://www.tinymce.com' },
+		{ title: 'My page 2', value: 'http://www.moxiecode.com' }
+	  ],
+	  image_class_list: [
+		{ title: 'None', value: '' },
+		{ title: 'Some class', value: 'class-name' }
+	  ],
+	  importcss_append: true,
+	  height: 400,
+	  file_picker_callback: function (callback, value, meta) {
+		/* Provide file and text for the link dialog */
+		if (meta.filetype === 'file') {
+		  callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+		}
+	
+		/* Provide image and alt text for the image dialog */
+		if (meta.filetype === 'image') {
+		  callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+		}
+	
+		/* Provide alternative source and posted for the media dialog */
+		if (meta.filetype === 'media') {
+		  callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+		}
+	  },
+	  templates: [
+		{ title: 'Some title 1', description: 'Some desc 1', content: 'My content' },
+		{ title: 'Some title 2', description: 'Some desc 2', content: '<div class="mceTmpl"><span class="cdate">cdate</span><span class="mdate">mdate</span>My content2</div>' }
+	  ],
+	  template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
+	  template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
+	  image_caption: true,
+	  spellchecker_dialog: true,
+	  spellchecker_whitelist: ['Ephox', 'Moxiecode'],
+	  tinycomments_mode: 'embedded',
+	  mentions_fetch: mentionsFetchFunction,
+	  content_style: '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }'
+	 });
+	
+	
+	</script>
 <script>
 
 	$(document).ready(function() {

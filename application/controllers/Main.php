@@ -7,6 +7,8 @@ class Main extends CI_Controller {
     public function index()
     {
         $this->load->model('noticias_model');
+        $this->load->model('slider_model');
+        $this->load->model('eventos_model');
 
         $this->load->view('inicio');
         
