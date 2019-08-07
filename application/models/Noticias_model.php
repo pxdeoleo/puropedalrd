@@ -8,6 +8,16 @@ class Noticias_model extends CI_Model {
         parent::__construct();
     }
 
+    public function noticias(){
+        $CI =& get_instance();
+
+        $noticia = $CI->db
+        ->get('noticias')
+        ->result_array();
+        
+        return $noticia;
+    }
+
     public function ultNoticias(){
         $CI =& get_instance();
 
