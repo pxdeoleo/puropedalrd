@@ -14,7 +14,7 @@ plantilla::aplicar();
 </head>
 <body>
     <!-- SLIDER -->
-<header class="masthead">
+<div class="container">
 <!--Carousel Wrapper-->
 <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
   <!--Indicators-->
@@ -84,7 +84,8 @@ SLIDE;
   <!--/.Controls-->
 </div>
 <!--/.Carousel Wrapper-->
-</header>
+</div>
+
 <br>
 <br>
 
@@ -150,7 +151,6 @@ NOTICIA;
 </body>
 
 <style>
-
 	.d-block {
 		width:100%;
 		height:100%;
@@ -164,11 +164,26 @@ NOTICIA;
 		overflow: hidden;
 	}
 
+.carousel-item {
+  height: 65vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/*
   .carousel-inner img {
-      width: 100%;
-      max-height: 460px;
-  }
+      width: 640px;
+      max-height: 400px;
+	  margin: auto;
+  }*/
 
+
+  .carousel {
+	  margin-top: 103px;
+  }
 </style>
 <script>
 
