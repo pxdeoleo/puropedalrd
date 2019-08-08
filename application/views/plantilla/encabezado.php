@@ -62,7 +62,7 @@ $base = base_url('base');
             <a class="nav-link js-scroll-trigger" href="<?= base_url('eventos')?>">Eventos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('')?>">Team</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('cuenta')?>">Mi Cuenta</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url('')?>">Contact</a>

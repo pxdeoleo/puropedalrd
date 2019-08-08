@@ -1,4 +1,7 @@
 <?php
+session_start();	//Session
+//---------------------------
+
 plantilla::aplicar();
 $base = base_url('base');
 
@@ -201,6 +204,8 @@ EVENTO;
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
+	}
+		
 	}
 /*
   .carousel-inner img {

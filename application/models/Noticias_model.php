@@ -12,6 +12,7 @@ class Noticias_model extends CI_Model {
         $CI =& get_instance();
 
         $noticia = $CI->db
+        ->order_by('fecha', 'DESC')
         ->get('noticias')
         ->result_array();
         

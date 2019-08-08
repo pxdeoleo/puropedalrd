@@ -1,4 +1,6 @@
 <?php
+session_start();	//Session
+//---------------------------
     plantilla::aplicar();
     date_default_timezone_set('America/Santo_Domingo');
     setlocale(LC_TIME, 'es_ES.UTF-8');

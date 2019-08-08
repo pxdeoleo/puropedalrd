@@ -1,4 +1,6 @@
 <?php
+session_start();	//Session
+//---------------------------
 plantilla::aplicar();
 $ruta = base_url();
 $base = base_url('base');

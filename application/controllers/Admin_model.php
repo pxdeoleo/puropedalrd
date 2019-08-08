@@ -8,6 +8,7 @@ class Admin_model extends CI_Model {
         parent::__construct();
     }
 
+
 }
 
 /* End of file Noticias_model.php */

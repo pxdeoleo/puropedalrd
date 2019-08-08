@@ -1,4 +1,6 @@
 <?php
+session_start();	//Session
+//---------------------------
 plantilla::aplicar();
 
 if (isset($_POST['asunto']) && isset($_FILES['foto'])) {

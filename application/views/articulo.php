@@ -1,4 +1,6 @@
 <?php
+session_start();	//Session
+//---------------------------
 plantilla::aplicar();
 $noticia = new stdClass;
 $id = $this->uri->segment(3);

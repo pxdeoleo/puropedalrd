@@ -19,7 +19,6 @@ class Admin extends CI_Controller {
         $this->load->model('slider_model');
         $this->load->view('agregar_sliders');
         
-        
     }
 
 }

@@ -1,5 +1,8 @@
 <?php
+session_start();	//Session
+//---------------------------
 plantilla::aplicar();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
