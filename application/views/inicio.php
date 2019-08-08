@@ -1,5 +1,7 @@
 <?php
 plantilla::aplicar();
+$base = base_url('base');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +12,12 @@ plantilla::aplicar();
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <script src="<?=$base;?>/js/fotos.inicio.js"></script>
+	<link href="<?=$base;?>/css/fotos.inicio.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-    <!-- SLIDER -->
+<!-- SLIDER -->
 <div class="container">
 <!--Carousel Wrapper-->
 <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
@@ -39,10 +43,6 @@ DATA_SLIDE_TO;
   </ol>
   <!--/.Indicators-->
 
-	<?php
-
-
-	?>
   <!--Slides-->
   <div class="carousel-inner" role="listbox">
 
@@ -86,12 +86,35 @@ SLIDE;
 <!--/.Carousel Wrapper-->
 </div>
 
-<br>
+<!-- Galeria -->
+<div class="container">
+	<div class="row justify-content-md-center">
+		<?php
+			$fotos = $this->galeria_model->fotos_visitas();
+			for ($i=0; $i < 3; $i++) { 
+				# code...
+				$descripcion = substr($fotos[$i]['descripcion'], 0, 100);
+				echo<<<FOTO
+				<figure class="snip1543">
+					<img src="fotos/galerias/{$fotos[$i]['foto']}" alt="{$fotos[$i]['nombre']}" />
+					<figcaption>
+						<h3>{$fotos[$i]['nombre']}</h3>
+						<p>{$descripcion}...</p>
+					</figcaption>
+					<a href="galerias/ver/{$fotos[$i]['id_galeria']}"></a>
+				</figure>
+FOTO;
+			}
+		?>
+	</div>
+</div>
+<!-- Galeria -->
 <br>
 
 <?php
-  $noticias = $this->noticias_model->ultNoticias();
+  	$noticias = $this->noticias_model->ultNoticias();
 ?>
+
 	<div class='container'>
 		<div class="row">
 			<div class='col-9'>
@@ -148,6 +171,7 @@ NOTICIA;
 								{$fecha}
 							</div>
 						</div>
+						<br>
 EVENTO;
 					}	
 				?>
@@ -191,15 +215,15 @@ EVENTO;
 		overflow: hidden;
 	}
 
-.carousel-item {
-  height: 65vh;
-  min-height: 350px;
-  background: no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
+	.carousel-item {
+		height: 65vh;
+		min-height: 350px;
+		background: no-repeat center center scroll;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
 /*
   .carousel-inner img {
       width: 640px;
@@ -212,6 +236,7 @@ EVENTO;
 	  margin-top: 103px;
   }
 </style>
+
 <script>
 
 	$(document).ready(function() {
