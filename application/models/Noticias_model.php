@@ -18,6 +18,17 @@ class Noticias_model extends CI_Model {
         return $noticia;
     }
 
+    public function noticias_x_id($id){
+        $CI =& get_instance();
+
+        $noticia = $CI->db
+        ->where('id_noticia',$id)
+        ->get('noticias')
+        ->result_array();
+        
+        return $noticia;
+    }
+
     public function ultNoticias(){
         $CI =& get_instance();
 
