@@ -8,10 +8,6 @@ class Admin_model extends CI_Model {
         parent::__construct();
     }
 
-    public function guardarSlider(){
-        
-    }
-
 
 }
 

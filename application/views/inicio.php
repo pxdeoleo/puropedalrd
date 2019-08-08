@@ -14,53 +14,62 @@ plantilla::aplicar();
 </head>
 <body>
     <!-- SLIDER -->
-<header class="masthead">
+<div class="container">
 <!--Carousel Wrapper-->
 <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
   <!--Indicators-->
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-2" data-slide-to="1"></li>
-    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+	<?php
+		$slides = $this->slider_model->getSlides();
+		$tmp = 0;
+		foreach ($slides as $clave => $slide) {
+			# code...
+
+			if($tmp==0){
+				$active = 'class="active"';
+			}else{
+				$active = "";
+			}
+			echo<<<DATA_SLIDE_TO
+			<li data-target="#carousel-example-2" data-slide-to="{$tmp}" {$active}></li>		
+DATA_SLIDE_TO;
+			$tmp++;
+		}
+	?>
   </ol>
   <!--/.Indicators-->
+
+	<?php
+
+
+	?>
   <!--Slides-->
   <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <div class="view">
-        <img class="d-block w-100" src="base/img/header-bg.jpg"
-          alt="First slide">
-        <div class="mask rgba-black-light"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">Light mask</h3>
-        <p>First text</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-          alt="Second slide">
-        <div class="mask rgba-black-strong"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">Strong mask</h3>
-        <p>Secondary text</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-          alt="Third slide">
-        <div class="mask rgba-black-slight"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">Slight mask</h3>
-        <p>Third text</p>
-      </div>
-    </div>
+
+	<?php
+	$tmp = true;
+	foreach ($slides as $clave => $slide) {
+		# code...
+		if($tmp){
+			$active = 'active';
+			$tmp = false;
+		}else{
+			$active = '';
+		}
+		echo<<<SLIDE
+		<div class="carousel-item {$active}" >
+			<div class="view">
+				<img class="d-block w-100" src="fotos/slider/{$slide['foto']}"
+				alt="{$slide['texto']}">
+				<div class="mask rgba-black-light"></div>
+			</div>
+			<div class="carousel-caption">
+				<h3 class="h3-responsive">{$slide['texto']}</h3>
+			</div>
+		</div>
+SLIDE;
+	}
+	?>
   </div>
   <!--/.Slides-->
   <!--Controls-->
@@ -75,48 +84,92 @@ plantilla::aplicar();
   <!--/.Controls-->
 </div>
 <!--/.Carousel Wrapper-->
-</header>
+</div>
+
 <br>
 <br>
 
 <?php
   $noticias = $this->noticias_model->ultNoticias();
 ?>
-<div class='card-group col-md-8'>
-  <?php
-    foreach ($noticias as $clave => $noticia) {
-      # code...
-      echo<<<NOTICIA
-      <div class="card">
-		  <a href="noticias/{$noticia['id_noticia']}">
-		  <img class="card-img-top" src="{$noticia['foto']}" height='160' alt="{$noticia['asunto']}">
-		  </a>
-        <div class="card-body">
-          <h5 class="card-title">{$noticia['asunto']}</h5>
-          <p class="card-text">{$noticia['contenido']}</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
+	<div class='container'>
+		<div class="row">
+			<div class='col-9'>
+				<!-- Noticias recientes -->
+				<div class='card-group'>
+					<?php
+						foreach ($noticias as $clave => $noticia) {
+						# code...
+						$contenido = substr(strip_tags($noticia['contenido']), 0, 150);
+						echo<<<NOTICIA
+						<div class="card">
+							<a href="noticias/{$noticia['id_noticia']}">
+							<img class="card-img-top noti-thumb" src="fotos/noticias/{$noticia['foto']}" height='160' alt="{$noticia['asunto']}">
+							</a>
+							<div class="card-body">
+							<h5 class="card-title">{$noticia['asunto']}</h5>
+							<p class="card-text">{$contenido}...<a href="#"> Leer más...</a></p>
+							</div>
+							<div class="card-footer">
+							<small class="text-muted">{$noticia['fecha']}</small>
+							</div>
+						</div>
 
 NOTICIA;
-    }
-  ?>
-</div>
-
+				}
+					?>
+				</div>
+			</div>
+			<div class="col-3 ml-auto">
+				<!-- Próximos eventos -->
+				<?php
+					$eventos = $this->eventos_model->ultEventos();
+					foreach ($eventos as $clave => $evento) {
+						# code...
+						var_dump($evento);
+					}	
+				?>
+				  
+			</div>
+		</div>
+	</div>
 
     
 </body>
 
 <style>
-  .carousel-inner img {
-      width: 100%;
-      max-height: 460px;
-  }
+	.d-block {
+		width:100%;
+		height:100%;
+		object-fit: cover;
+		overflow: hidden;
+	}
+	.noti-thumb {
+		width:600;
+		height:400;
+		object-fit: cover;
+		overflow: hidden;
+	}
 
-  .carousel-inner{
-  
+.carousel-item {
+  height: 65vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/*
+  .carousel-inner img {
+      width: 640px;
+      max-height: 400px;
+	  margin: auto;
+  }*/
+
+
+  .carousel {
+	  margin-top: 103px;
   }
 </style>
 <script>

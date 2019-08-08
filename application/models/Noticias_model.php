@@ -8,32 +8,79 @@ class Noticias_model extends CI_Model {
         parent::__construct();
     }
 
-    public function ultNoticias(){
+    public function noticias(){
         $CI =& get_instance();
 
         $noticia = $CI->db
-        ->limit(3)
         ->get('noticias')
         ->result_array();
         
         return $noticia;
     }
 
-    public function getImagen($id){
-        $ruta="../imagenes/";//ruta carpeta donde queremos copiar las imágenes
-        $uploadfile_temporal=$_FILES['archivo']['tmp_name'];
-        $uploadfile_nombre=$ruta.$_FILES['archivo']['name'];
+    public function noticias_x_id($id){
+        $CI =& get_instance();
 
-        if (is_uploaded_file($uploadfile_temporal))
-        {
-            move_uploaded_file($uploadfile_temporal,$uploadfile_nombre);
-            return true;
-        }
-        else
-        {
+        $noticia = $CI->db
+        ->where('id_noticia',$id)
+        ->get('noticias')
+        ->result_array();
         
-        return false;
-        }  
+        return $noticia;
+    }
+
+    public function ultNoticias(){
+        $CI =& get_instance();
+
+        $noticia = $CI->db
+        ->limit(3)
+        ->order_by('fecha', 'DESC')
+        ->get('noticias')
+        ->result_array();
+        
+        return $noticia;
+    }
+
+    public function guardarNoticia($noticia, $foto){
+        // if($_FILES["archivo"]["type"][$i]=="image/jpeg" || $_FILES["archivo"]["type"][$i]=="image/pjpeg" || $_FILES["archivo"]["type"][$i]=="image/gif" || $_FILES["archivo"]["type"][$i]=="image/png"){
+        
+        $CI =& get_instance();
+        $maxid = $CI->db->query('SELECT MAX(id_noticia) FROM noticias')->result_array()[0]['MAX(id_noticia)'];
+        $ruta="fotos/noticias/";//ruta carpeta donde queremos copiar las imágenes
+        $uploadfile_temporal=$foto['tmp_name'];
+            
+
+        if($foto["type"]=="image/jpeg") 
+        {
+            $uploadfile_nombre = ($maxid+1).'.jpg';
+
+        }
+        else if($foto["type"]=="image/pjpeg")
+        {
+            $uploadfile_nombre = ($maxid+1).'.jpeg';       
+       
+        }
+        else if($foto["type"]=="image/gif")
+        {
+            $uploadfile_nombre = ($maxid+1).'.gif';       
+
+        }
+        else if($foto["type"]=="image/png"){
+            $uploadfile_nombre = ($maxid+1).'.png';       
+
+        }
+
+    
+        move_uploaded_file($uploadfile_temporal, $ruta.$uploadfile_nombre);
+        
+        $CI =& get_instance();
+        $CI->db->insert('noticias', array(
+            'asunto'=>$noticia['asunto'],
+            'contenido'=>$noticia['contenido'],
+            'foto'=>$uploadfile_nombre,
+            'fecha'=>date('Y-m-d')
+        ));
+        
     }
     
 

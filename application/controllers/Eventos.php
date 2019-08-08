@@ -7,8 +7,8 @@ class Eventos extends CI_Controller {
     public function index()
     {
         $this->load->view('eventos');
-        
     }
+    
 
 }
 
