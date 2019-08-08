@@ -13,8 +13,14 @@ class Slider_model extends CI_Model {
         $CI =& get_instance();
         $slides = $CI->db
         ->get('slider')->result_array();
-
         return $slides;
+    }
+
+    public function guardarSlides($slides){
+        
+        $CI =& get_instance();
+        $CI->db
+        ->insert('slider', $slides);
     }
     
 

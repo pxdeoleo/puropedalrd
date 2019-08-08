@@ -32,7 +32,7 @@ class Noticias_model extends CI_Model {
 
     public function guardarNoticia($noticia, $foto){
         // if($_FILES["archivo"]["type"][$i]=="image/jpeg" || $_FILES["archivo"]["type"][$i]=="image/pjpeg" || $_FILES["archivo"]["type"][$i]=="image/gif" || $_FILES["archivo"]["type"][$i]=="image/png"){
-        
+        date_default_timezone_set ('America/Santo_Domingo');
         $CI =& get_instance();
         $maxid = $CI->db->query('SELECT MAX(id_noticia) FROM noticias')->result_array()[0]['MAX(id_noticia)'];
         $ruta="fotos/noticias/";//ruta carpeta donde queremos copiar las imágenes

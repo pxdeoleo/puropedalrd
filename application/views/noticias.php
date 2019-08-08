@@ -21,28 +21,40 @@ plantilla::aplicar();
 
 <?php
   $noticias = $this->noticias_model->noticias();
+  
+  date_default_timezone_set('America/Santo_Domingo');
+  setlocale(LC_TIME, 'es_ES.UTF-8');
 
-  foreach ($noticias as $clave => $noticias) {
-      $caracteres = substr(strip_tags($noticias['contenido']),0,150);
-      $urlInfo = base_url("noticias/articulo/{$noticias['id_noticia']}");
+  foreach ($noticias as $clave => $noticia) {
+      $caracteres = substr(strip_tags($noticia['contenido']),0,150);
+
+      $fecha = $noticia['fecha'];
+      $fecharaw = strftime("%A, %d de %B del %Y", strtotime($fecha));
+
+      $search = array('á','é','í','ó','ú');
+      $replace = array('a','e','i','o','u');
+
+      $fecha = str_replace($search, $replace, $fecharaw);
+
+      $urlInfo = base_url("noticias/articulo/{$noticia['id_noticia']}");
       echo<<<NOTICIA
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <a href="noticias/{$noticias['id_noticia']}">
-                        <img class="img-fluid rounded" src="{$noticias['foto']}" alt="{$noticias['asunto']}">
+                        <a href="noticias/articulo/{$noticia['id_noticia']}">
+                        <img class="img-fluid rounded" src="fotos/noticias/{$noticia['foto']}" alt="{$noticia['asunto']}">
                         </a>
                     </div>
                     <div class="col-lg-5">
-                        <h2 class="card-title">{$noticias['asunto']}</h2>
+                        <h2 class="card-title">{$noticia['asunto']}</h2>
                         <p class="card-text"> <b> $caracteres </b> </p>
                         <a class="" href="$urlInfo">Leer mas...</a>
                     </div>
                 </div>
             </div>
             <div class="card-footer text-muted">
-            <small>Subido hace 3 minutos</small>
+            <small>Publicado el {$fecha}</small>
             </div>
         </div>
 <hr>

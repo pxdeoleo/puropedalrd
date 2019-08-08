@@ -15,6 +15,13 @@ class Admin extends CI_Controller {
         $this->load->view('agregar_noticia');
     }
 
+    public function sliders(){
+        $this->load->model('slider_model');
+        $this->load->view('agregar_sliders');
+        
+        
+    }
+
 }
 
 /* End of file Controllername.php */

@@ -95,6 +95,8 @@ SLIDE;
 	<div class='container'>
 		<div class="row">
 			<div class='col-9'>
+				<a href="noticias"><h4>Noticias Recientes</h4></a>
+				<hr>
 				<!-- Noticias recientes -->
 				<div class='card-group'>
 					<?php
@@ -103,12 +105,12 @@ SLIDE;
 						$contenido = substr(strip_tags($noticia['contenido']), 0, 150);
 						echo<<<NOTICIA
 						<div class="card">
-							<a href="noticias/{$noticia['id_noticia']}">
-							<img class="card-img-top noti-thumb" src="fotos/noticias/{$noticia['foto']}" height='160' alt="{$noticia['asunto']}">
+							<a href="noticias/articulo/{$noticia['id_noticia']}">
+								<img class="card-img-top noti-thumb" src="fotos/noticias/{$noticia['foto']}" height='160' alt="{$noticia['asunto']}">
 							</a>
 							<div class="card-body">
 							<h5 class="card-title">{$noticia['asunto']}</h5>
-							<p class="card-text">{$contenido}...<a href="#"> Leer más...</a></p>
+							<p class="card-text">{$contenido}...<a href="noticias/articulo/{$noticia['id_noticia']}"> Leer más...</a></p>
 							</div>
 							<div class="card-footer">
 							<small class="text-muted">{$noticia['fecha']}</small>
@@ -121,15 +123,53 @@ NOTICIA;
 				</div>
 			</div>
 			<div class="col-3 ml-auto">
+				<a href="eventos"><h4>Próximos Eventos</h4></a>
+				<hr>
 				<!-- Próximos eventos -->
 				<?php
+					date_default_timezone_set('America/Santo_Domingo');
+					setlocale(LC_TIME, 'es_ES.UTF-8');
 					$eventos = $this->eventos_model->ultEventos();
 					foreach ($eventos as $clave => $evento) {
+						$descripcion = $contenido = substr($evento['descripcion'], 0, 25);
+						$fecha = strftime("%d/%B/%Y", strtotime($evento['fecha']));
+
 						# code...
-						var_dump($evento);
+						echo<<<EVENTO
+						<div class="card">
+							<div class="card-body">
+								<img class="card-img-top" src="fotos/eventos/{$evento['foto']}" alt="Card image cap">
+								<h5 class="card-title">{$evento['nombre']}</h5>
+								<a tabindex="0" data-placement="left" class="btn btn-sm btn-primary" role="button" data-toggle="popover" data-trigger="focus" 
+									title="{$evento['nombre']}" 
+									data-content="{$evento['descripcion']} <a href='eventos/detalles/{$evento['id_evento']}'>Ver más...</a>">
+									Detalles
+								</a>
+								{$fecha}
+							</div>
+						</div>
+EVENTO;
 					}	
 				?>
-				  
+				<script>
+					
+					$("[data-toggle=popover]")
+					.popover({ html: true})
+					.on("focus", function () {
+						$(this).popover("show");
+					}).on("focusout", function () {
+						var _this = this;
+						if (!$(".popover:hover").length) {
+							$(this).popover("hide");
+						}
+						else {
+							$('.popover').mouseleave(function() {
+								$(_this).popover("hide");
+								$(this).off('mouseleave');
+							});
+						}
+					});
+				</script>
 			</div>
 		</div>
 	</div>
