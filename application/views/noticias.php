@@ -44,11 +44,7 @@ plantilla::aplicar();
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6">
-<<<<<<< HEAD
                         <a href="noticias/articulo/{$noticia['id_noticia']}">
-=======
-                        <a href="noticias/{$noticia['id_noticia']}">
->>>>>>> ef5ebde457bb6c1cb24be48d18f19b7634c54113
                         <img class="img-fluid rounded" src="fotos/noticias/{$noticia['foto']}" alt="{$noticia['asunto']}">
                         </a>
                     </div>
@@ -60,11 +56,7 @@ plantilla::aplicar();
                 </div>
             </div>
             <div class="card-footer text-muted">
-<<<<<<< HEAD
             <small>Publicado el {$fecha}</small>
-=======
-            <small>Publicado en $fecha</small>
->>>>>>> ef5ebde457bb6c1cb24be48d18f19b7634c54113
             </div>
         </div>
 <hr>
