@@ -13,6 +13,9 @@ $base = base_url('base');
 
   <title>Agency - Start Bootstrap Theme</title>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
   <!-- Bootstrap core CSS -->
   <link href="<?=$base;?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,6 +26,7 @@ $base = base_url('base');
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+  
 
 
   <!-- Custom styles for this template -->

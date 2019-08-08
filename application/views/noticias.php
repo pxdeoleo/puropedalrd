@@ -21,24 +21,30 @@ plantilla::aplicar();
 
 <?php
   $noticias = $this->noticias_model->noticias();
+  
+  date_default_timezone_set('America/Santo_Domingo');
+  setlocale(LC_TIME, 'es_ES.UTF-8');
 
-    date_default_timezone_set('America/Santo_Domingo');
-    setlocale(LC_TIME, 'es_ES.UTF-8');
+
 
   foreach ($noticias as $clave => $noticia) {
       $caracteres = substr(strip_tags($noticia['contenido']),0,150);
 
       $fecha = $noticia['fecha'];
-      $fecha = strftime("%A, %d de %B del %Y", strtotime($fecha));
+      $fecharaw = strftime("%A, %d de %B del %Y", strtotime($fecha));
+
+      $search = array('á','é','í','ó','ú');
+      $replace = array('a','e','i','o','u');
+
+      $fecha = str_replace($search, $replace, $fecharaw);
 
       $urlInfo = base_url("noticias/articulo/{$noticia['id_noticia']}");
-
       echo<<<NOTICIA
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <a href="noticias/{$noticia['id_noticia']}">
+                        <a href="noticias/articulo/{$noticia['id_noticia']}">
                         <img class="img-fluid rounded" src="fotos/noticias/{$noticia['foto']}" alt="{$noticia['asunto']}">
                         </a>
                     </div>
@@ -50,7 +56,7 @@ plantilla::aplicar();
                 </div>
             </div>
             <div class="card-footer text-muted">
-            <small>Publicado en $fecha</small>
+            <small>Publicado el {$fecha}</small>
             </div>
         </div>
 <hr>
