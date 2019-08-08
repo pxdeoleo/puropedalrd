@@ -16,7 +16,7 @@ class Eventos_model extends CI_Model {
         $CI =& get_instance();
         $eventos = $CI->db
         ->limit(3)
-        ->order_by('fecha', 'DESC')
+        ->order_by('fecha', 'ASC')
         ->where('fecha >= now()')
         ->get('eventos')
         ->result_array();
