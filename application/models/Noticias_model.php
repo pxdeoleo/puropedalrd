@@ -46,6 +46,7 @@ class Noticias_model extends CI_Model {
         date_default_timezone_set ('America/Santo_Domingo');
         $CI =& get_instance();
         $maxid = $CI->db->query('SELECT MAX(id_noticia) FROM noticias')->result_array()[0]['MAX(id_noticia)'];
+        
         $ruta="fotos/noticias/";//ruta carpeta donde queremos copiar las imágenes
         $uploadfile_temporal=$foto['tmp_name'];
             

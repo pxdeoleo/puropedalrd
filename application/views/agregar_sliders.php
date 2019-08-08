@@ -1,8 +1,13 @@
 <?php
+
 plantilla::aplicar();
 
-if(isset($_FILES['slide0'])){
-    $this->slider_model->guardarSlides()($_POST, $_FILES['foto']);
+if(isset($_FILES['slide'])){
+    $slides = array(
+        'texto'=>$_POST['textoSlide'],
+        'slides'=>$_FILES['slide']
+    );
+    $this->slider_model->guardarSlides($slides);
 }
 ?>
 <!DOCTYPE html>
@@ -20,37 +25,21 @@ if(isset($_FILES['slide0'])){
 <br>
 <br>
     <div class="container">
-        <form>
-            <!-- <div class="row">
-                <div class="form-group col-10">
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input name='slide0' type="file" class="custom-file-input" id="inputSlide0">
-                            <label class="custom-file-label" for="inputSlide0">*.jpeg;*.jpg;*.png;*.gif</label>
-                        </div>
-                    </div> -->
-                    <!-- <div id='subir1'></div> -->
-                <!-- </div>
-                <div class="form-group col-2">
-                    <button id='addSlide' type="button" class="btn btn-outline-primary">Agregar</button>  
-                </div>
-            </div>
-            <div id='subir1'></div> -->
-            
+        <form enctype="multipart/form-data" method='post'>
             <div class="card">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class='row'>
                             <div class="form-group col-10">
                                 <label for="inputSlide0">Slide 1</label>
-                                <input name='textoSlide0' type="text" class="form-control" id="inputSlide0" placeholder="Texto del Slide">
+                                <input required name='textoSlide[]' type="text" class="form-control" id="inputSlide0" placeholder="Texto del Slide">
                             </div>
                         </div>
                         <div class='row'>
                             <div class="form-group col-10">
                                 <div class="input-group">
                                     <div class="custom-file file-slide-0">
-                                        <input name='slide0' type="file" class="custom-file-input" id="inputSlide0">
+                                        <input required name='slide[]' type="file" class="custom-file-input" id="inputSlide0">
                                         <label id='labelInputSlide0'class="custom-file-label" for="inputSlide0">*.jpeg;*.jpg;*.png;*.gif</label>
                                     </div>
                                 </div>
@@ -63,9 +52,10 @@ if(isset($_FILES['slide0'])){
                     </li>
                     <div id='subir1'></div>
                 </ul>
+                <br>
+				<button type="submit" class="btn btn-primary float-right">Subir</button>
         </form>
     </div>
-    
 </body>
 </html>
 
@@ -86,14 +76,14 @@ if(isset($_FILES['slide0'])){
                     <div class='row'>
                         <div class="form-group col-10">
                             <label for="inputSlide`+sliders+`">Slide `+(sliders+1)+`</label>
-                            <input name='textoSlide`+sliders+`' type="text" class="form-control" id="inputSlide`+sliders+`" placeholder="Texto del Slide">
+                            <input name='textoSlide[]' required type="text" class="form-control" id="inputSlide`+sliders+`" placeholder="Texto del Slide">
                         </div>
                     </div>
                     <div class="slide`+sliders+` row">
                         <div class="form-group col-10">
                             <div class="input-group slide`+sliders+`">
                                 <div class="custom-file file-slide-`+sliders+`">
-                                    <input name='slide`+sliders+`' type="file" class="custom-file-input" id="inputSlide`+sliders+`">
+                                    <input required name='slide[]' type="file" class="custom-file-input" id="inputSlide`+sliders+`">
                                     <label id="labelInputSlide`+sliders+`" class="custom-file-label" for="inputSlide`+sliders+`">*.jpeg;*.jpg;*.png;*.gif</label>
                                 </div>
                             </div>

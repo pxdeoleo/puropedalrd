@@ -135,4 +135,33 @@ RETORNO;
 CARD;
     }
 
+    function guardarFoto($foto, $num, $carpeta){
+        $ruta="fotos/".$carpeta."/";//ruta carpeta donde queremos copiar las imágenes
+        $uploadfile_temporal=$foto['tmp_name'];
+            
+
+        if($foto["type"]=="image/jpeg")
+        {
+            $uploadfile_nombre = ($num).'.jpg';
+
+        }
+        else if($foto["type"]=="image/pjpeg")
+        {
+            $uploadfile_nombre = ($num).'.jpeg';       
+       
+        }
+        else if($foto["type"]=="image/gif")
+        {
+            $uploadfile_nombre = ($num).'.gif';       
+
+        }
+        else if($foto["type"]=="image/png"){
+            $uploadfile_nombre = ($num).'.png';       
+        }
+
+        move_uploaded_file($uploadfile_temporal, $ruta.$uploadfile_nombre);
+
+        return $uploadfile_nombre;
+    }
+
 ?>
