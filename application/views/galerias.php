@@ -18,7 +18,14 @@ $base = base_url('base');
     <br>
     <br>
     <br>
+    
       <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="../puropedal">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Galerías</li>
+            </ol>
+        </nav>
         <h1>Galerías</h1>
         <!-- Galerias -->
         <?php
@@ -28,7 +35,8 @@ $base = base_url('base');
                 echo<<<GALERIA
                 <div class="wrap">
                     <div class="tile"> 
-                        <a href="galerias/ver/{$galerias[$i]['id_galeria']}"><img src='fotos/galerias/{$galerias[$i]['foto']}'/>
+                        <a href="galerias/ver/{$galerias[$i]['id_galeria']}">
+                            <img src='fotos/galerias/{$galerias[$i]['foto']}'/>
                             <div class="text">
                                 <h1>{$galerias[$i]['id_galeria']}</h1>
                                 <h2 class="animate-text">{$galerias[$i]['nombre']}</h2>

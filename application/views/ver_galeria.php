@@ -21,7 +21,6 @@ $base = base_url('base');
     <link href="<?=$base;?>/css/galeria.ver.css" rel="stylesheet" type="text/css">
     <script src="<?=$base;?>/js/galeria.ver.js"></script>
 
-
 </head>
 <body>
     <br>
@@ -29,18 +28,22 @@ $base = base_url('base');
 
     <!-- Fotos -->
     <?php
-
-    ?>
-
-   <div class="container page-top">
-   <?php
         $galeria = $this->galeria_model->getFotos($id_galeria);
    ?>
+
+   <div class="container page-top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-dark">
+                <li class="breadcrumb-item"><a href="../..">Home</a></li>
+                <li class="breadcrumb-item"><a href="../">Galerías</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?=$galeria['nombre']?></li>
+            </ol>
+        </nav>
+   
    <h2><?=$galeria['nombre']?></h2>
 
         <div class="row">
             <?php
-
                 for ($i=0; $i < count($galeria['fotos']); $i++) { 
                     # code...
                     echo<<<FOTO

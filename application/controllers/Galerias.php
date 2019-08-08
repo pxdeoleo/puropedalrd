@@ -13,11 +13,10 @@ class Galerias extends CI_Controller {
 
     public function ver($id){
         $this->load->model('galeria_model');
-        
+        $this->galeria_model->visita($id);
         $data = array(
             'id_galeria'=>$id
         );
-        
         $this->load->view('ver_galeria', $data);
         
     }

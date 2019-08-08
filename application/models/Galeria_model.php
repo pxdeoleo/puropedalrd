@@ -14,16 +14,21 @@ class Galeria_model extends CI_Model {
     public function fotos_visitas(){
         $CI =& get_instance();
 
-        $populares = $CI->db
+        /* $populares = $CI->db
         ->limit(3)
         ->order_by('visitas', 'DESC')
         ->get('fotos_galerias')
+        ->result_array();
+         */
+
+        $populares = $CI->db
+        ->query("select distinct(id_galeria), foto, visitas from fotos_galerias order by visitas desc limit 3")
         ->result_array();
         
         // var_dump($populares);
         
         $fotos = array();
-        for ($i=0; $i < count($populares); $i++) { 
+        for ($i=0; $i < count($populares); $i++) {
             $galeria = $CI->db
             ->query('SELECT nombre, descripcion FROM galerias WHERE id_galeria = '.$populares[$i]['id_galeria'])
             ->result_array();
@@ -79,6 +84,17 @@ class Galeria_model extends CI_Model {
         );
 
         return $galeria;
+    }
+
+    public function visita($id_galeria){
+        
+        $CI =& get_instance();
+
+        $CI->db
+        ->query('UPDATE fotos_galerias
+        SET visitas = visitas + 1
+        WHERE id_galeria ='.$id_galeria);
+        
     }
 
 }
