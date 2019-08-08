@@ -1,6 +1,8 @@
 <?php
 plantilla::aplicar();
 $base = base_url('base');
+$ver_galerias = base_url('fotos/galerias/ver/');
+$rutafotos = base_url('fotos');
 
 ?>
 <!DOCTYPE html>
@@ -36,7 +38,7 @@ $base = base_url('base');
                 <div class="wrap">
                     <div class="tile"> 
                         <a href="galerias/ver/{$galerias[$i]['id_galeria']}">
-                            <img src='fotos/galerias/{$galerias[$i]['foto']}'/>
+                            <img src='{$rutafotos}/galerias/{$galerias[$i]['foto']}'/>
                             <div class="text">
                                 <h1>{$galerias[$i]['id_galeria']}</h1>
                                 <h2 class="animate-text">{$galerias[$i]['nombre']}</h2>

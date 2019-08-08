@@ -1,5 +1,6 @@
 <?php
 $base = base_url('base');
+// $galerias = base_url('galerias');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +45,7 @@ $base = base_url('base');
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Puro Pedal RD</a>
+      <a class="navbar-brand js-scroll-trigger" href="<?=base_url()?>">Puro Pedal RD</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -52,13 +53,13 @@ $base = base_url('base');
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('')?>">Services</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('galerias')?>">Galerias</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('')?>">Portfolio</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('noticias')?>">Noticias</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('')?>">About</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('eventos')?>">Eventos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url('')?>">Team</a>

@@ -24,6 +24,27 @@ class Eventos_model extends CI_Model {
         return $eventos;
     }
 
+    public function getEventos(){
+        
+        $CI =& get_instance();
+        $eventos = $CI->
+        db->get('eventos')
+        ->result();
+
+        return $eventos;
+    }
+
+    public function getEvento($id){
+        $CI =& get_instance();
+        $evento = $CI->
+        db->
+        where('id_evento', $id)
+        ->get('eventos')
+        ->result_array();
+
+        return $evento;
+    }
+
 }
 
 /* End of file Eventos_model.php */
