@@ -1,5 +1,7 @@
 <?php
 plantilla::aplicar();
+date_default_timezone_set('America/Santo_Domingo');
+setlocale(LC_TIME, 'es_ES.UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +24,7 @@ plantilla::aplicar();
 <?php
   $noticias = $this->noticias_model->noticias();
   
-  date_default_timezone_set('America/Santo_Domingo');
-  setlocale(LC_TIME, 'es_ES.UTF-8');
+  
 
 
 

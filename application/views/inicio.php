@@ -156,18 +156,14 @@ NOTICIA;
 					foreach ($eventos as $clave => $evento) {
 						$descripcion = $contenido = substr($evento['descripcion'], 0, 25);
 						$fecha = strftime("%d/%B/%Y", strtotime($evento['fecha']));
-
+						$rutaevento = base_url('eventos/ver/').$evento['id_evento'];
 						# code...
 						echo<<<EVENTO
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top" src="fotos/eventos/{$evento['foto']}" alt="Card image cap">
 								<h5 class="card-title">{$evento['nombre']}</h5>
-								<a tabindex="0" data-placement="left" class="btn btn-sm btn-primary" role="button" data-toggle="popover" data-trigger="focus" 
-									title="{$evento['nombre']}" 
-									data-content="{$evento['descripcion']} <a href='eventos/detalles/{$evento['id_evento']}'>Ver más...</a>">
-									Detalles
-								</a>
+								<a href='{$rutaevento}'class="btn btn-sm btn-primary">Detalles</a>
 								{$fecha}
 							</div>
 						</div>

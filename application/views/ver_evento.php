@@ -1,5 +1,7 @@
 <?php
     plantilla::aplicar();
+    date_default_timezone_set('America/Santo_Domingo');
+    setlocale(LC_TIME, 'es_ES.UTF-8');
 ?>
 
 <!DOCTYPE html>
@@ -14,11 +16,23 @@
 <body>
     <br><br><br><br><br>
     <div class="container">
-        <form>
+        <form>  
+            <?php
+                $fecha_parse = date_parse($evento[0]['fecha']);
+                $fecha_now = date_parse(date("Y-m-d"));
+                if($fecha_parse<$fecha_now){
+                    echo<<<VENCIO
+                    <div class="alert alert-danger" role="alert">
+                        Este evento ya venció
+                    </div>
+VENCIO;
+                }
+            ?>
             <div class="row">
+                
                 <div class="card col-9">
                     <div class='card-body'>
-                        <img src="<?=base_url('fotos/eventos/'.$evento[0]['foto'])?>" alt="">
+                        <div class='foto-evt'><img src="<?=base_url('fotos/eventos/'.$evento[0]['foto'])?>" alt=""></div>
                         <h2><?=$evento[0]['nombre']?></h2>
                         <b>Grupo que lo organiza:</b><p><?=$evento[0]['grupo_organiza']?></p>
                         <b>Descripcion:</b><p><?=$evento[0]['descripcion']?></p>
@@ -28,6 +42,13 @@
                         <b>Inscripción:</b><p><a href="<?=$evento[0]['ruta_strava']?>"><?=$evento[0]['ruta_strava']?></a></p>  
                     </div>
                 </div>
+                <style>
+                .foto-evt{
+                    width:100%;
+                    object-fit: cover;
+                    overflow: hidden;
+                }
+                </style>
                 <div class='col-3 ml-auto'>
                     <!-- Próximos eventos -->
                     <?php
@@ -39,17 +60,14 @@
                             $descripcion = $contenido = substr($evento['descripcion'], 0, 25);
                             $fecha = strftime("%d/%B/%Y", strtotime($evento['fecha']));
                             $rutafoto = $rutaFEventos.$evento['foto'];
+                            $rutaevento = base_url('eventos/ver/').$evento['id_evento'];
                             # code...
                             echo<<<EVENTO
                             <div class="card">
                                 <div class="card-body">
                                     <img class="card-img-top" src="{$rutafoto}" alt="Card image cap">
                                     <h5 class="card-title">{$evento['nombre']}</h5>
-                                    <a tabindex="0" data-placement="left" class="btn btn-sm btn-primary" role="button" data-toggle="popover" data-trigger="focus" 
-                                        title="{$evento['nombre']}" 
-                                        data-content="{$evento['descripcion']} <a href='eventos/detalles/{$evento['id_evento']}'>Ver más...</a>">
-                                        Detalles
-                                    </a>
+                                    <a href='{$rutaevento}'class="btn btn-sm btn-primary">Detalles</a>
                                     {$fecha}
                                 </div>
                             </div>
@@ -64,22 +82,4 @@ EVENTO;
 
 </body>
 
-<script>		
-    $("[data-toggle=popover]")
-    .popover({ html: true})
-    .on("focus", function () {
-        $(this).popover("show");
-    }).on("focusout", function () {
-        var _this = this;
-        if (!$(".popover:hover").length) {
-            $(this).popover("hide");
-        }
-        else {
-            $('.popover').mouseleave(function() {
-                $(_this).popover("hide");
-                $(this).off('mouseleave');
-            });
-        }
-    });
-</script>
 </html>

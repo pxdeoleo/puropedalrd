@@ -27,30 +27,57 @@ $fecha = strftime("%A, %d de %B del %Y", strtotime($fecha));
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-8">
-                <input type="hidden" name="id_noticia" value='<?= $noticia['id_noticia']?>'>
-                <h2><?=$noticia['asunto']?></h2>
-                        
-                <hr>
-                <img class="img-fluid rounded" src="../../fotos/noticias/<?=$noticia['foto']?>" alt="">
+            <div class="card col-8">
+                <div class='card-body'>
+                    <input type="hidden" name="id_noticia" value='<?= $noticia['id_noticia']?>'>
+                    <h2><?=$noticia['asunto']?></h2>
+                            
+                    <hr>
+                    <img class="img-fluid rounded noti-full" src="../../fotos/noticias/<?=$noticia['foto']?>" alt="">
 
-                <hr>
-                <Small class=text-muted><?=$fecha?></small>
-                <br>
-                <br>
-                        
-                <p><?=$noticia['contenido']?></p>
+                    <hr>
+                    <Small class=text-muted><?=$fecha?></small>
+                    <br>
+                    <br>
+                            
+                    <p><?=$noticia['contenido']?></p>
+                </div>
             </div>
-
-            <div class="col-4">
-                
-                
-            </div>
+            <div class="col-4 ml-auto">
+				<a href="eventos"><h4>Artículos Recientes</h4></a>
+				<hr>
+				<!-- Artículos Recientes -->
+				<?php
+					date_default_timezone_set('America/Santo_Domingo');
+                    setlocale(LC_TIME, 'es_ES.UTF-8');
+                    
+					$noticias = $this->noticias_model->ultNoticias();
+					foreach ($noticias as $clave => $noti) {
+						$descripcion = $contenido = substr($noti['contenido'], 0, 25);
+						$fecha = strftime("%d/%B/%Y", strtotime($noti['fecha']));
+                        $rutanoticia = base_url('noticias/articulo/').$noti['id_noticia'];
+                        $rutafotonoticia = base_url('fotos/noticias/').$noti['foto'];
+						# code...
+						echo<<<EVENTO
+						<div class="card">
+							<div class="card-body">
+								<img class="card-img-top" src="{$rutafotonoticia}" alt="Card image cap">
+								<h5 class="card-title">{$noti['asunto']}</h5>
+								<a href='{$rutanoticia}'class="btn btn-sm btn-primary">Detalles</a>
+								{$fecha}
+							</div>
+						</div>
+						<br>
+EVENTO;
+					}	
+				?>
+				
+			</div>
         </div>
     </div>
 </body>
 <style>
-    .row img{
+    .noti-full{
         width:900px;
         height:300px;
         object-fit:cover;
@@ -59,5 +86,7 @@ $fecha = strftime("%A, %d de %B del %Y", strtotime($fecha));
     .row{
         margin-top:125px;
     }
+    
+    
 </style>
 </html>

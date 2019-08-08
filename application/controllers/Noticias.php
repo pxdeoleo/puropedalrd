@@ -14,6 +14,8 @@ class Noticias extends CI_Controller {
     {
         $this->load->model('noticias_model');
         $this->load->view('articulo',['id_noticia',$id_noticia]);
+        $this->load->view('plantilla/comentarios');
+
     }
 
 }

@@ -25,6 +25,8 @@ if (isset($_POST['asunto']) && isset($_FILES['foto'])) {
 	<br>
 	<form method='post' enctype="multipart/form-data">
 		<div class="container">
+			<h2>Redactar Artículo</h2>
+			<br>
 			<div class="form-group">
 				<div class='input-group'>
 					<?=asgInput('asunto', 'Asunto', ['required'=>'required'])?>

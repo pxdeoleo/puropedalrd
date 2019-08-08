@@ -21,6 +21,8 @@ class Eventos extends CI_Controller {
         );
 
         $this->load->view('ver_evento', $data);
+        $this->load->view('plantilla/comentarios');
+
     }
     
 
