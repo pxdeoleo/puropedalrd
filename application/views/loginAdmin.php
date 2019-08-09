@@ -3,19 +3,18 @@ plantilla::aplicar();
 session_start();
 
 if(isset($_POST['user'])){
-  if(Cuenta_model::inicio_sesion($_POST['user'], $_POST['pass'])){
-    $_SESSION['user']=true;
-    redirect(base_url(''));
+  if(Admin_model::inicio_sesion($_POST['user'], $_POST['pass'])){
+    $_SESSION['admin']=true;
+    redirect(base_url('admin/sliders'));
     $malpass='';
   }else{
     $malpass = "Credenciales no coinciden";
   }
 }else{
   $malpass='';
-
 }
-if(isset($_SESSION['user'])){
-  redirect(base_url('cuenta/nuevo_anuncio'));
+if(isset($_SESSION['admin'])){
+  redirect(base_url('admin/sliders'));
 }
 
 

@@ -6,16 +6,15 @@ class Admin extends CI_Controller {
 
     public function index()
     {
-        redirect(base_url('admin/sliders'));
+        $this->load->model('admin_model');
+        $this->load->view('loginAdmin');
     }
 
     public function mensajes(){
         $this->load->model('mensajes_model');
 
         $this->load->view('mensajes');
-        $this->load->view('admin');
-        
-        
+        $this->load->view('admin');   
     }
 
     public function noticias(){
