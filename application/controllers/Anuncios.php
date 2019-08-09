@@ -14,7 +14,6 @@ class Anuncios extends CI_Controller {
     {
         $this->load->model('anuncios_model');
         $this->load->view('descripcion');
-        
     }
 
 }

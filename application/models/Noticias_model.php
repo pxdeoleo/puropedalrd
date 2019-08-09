@@ -45,44 +45,69 @@ class Noticias_model extends CI_Model {
     public function guardarNoticia($noticia, $foto){
         // if($_FILES["archivo"]["type"][$i]=="image/jpeg" || $_FILES["archivo"]["type"][$i]=="image/pjpeg" || $_FILES["archivo"]["type"][$i]=="image/gif" || $_FILES["archivo"]["type"][$i]=="image/png"){
         date_default_timezone_set ('America/Santo_Domingo');
-        $CI =& get_instance();
-        $maxid = $CI->db->query('SELECT MAX(id_noticia) FROM noticias')->result_array()[0]['MAX(id_noticia)'];
-        
-        $ruta="fotos/noticias/";//ruta carpeta donde queremos copiar las imágenes
-        $uploadfile_temporal=$foto['tmp_name'];
+        if(!is_string($foto)){
+            $CI =& get_instance();
+            $maxid = $CI->db->query('SELECT MAX(id_noticia) FROM noticias')->result_array()[0]['MAX(id_noticia)'];
             
-
-        if($foto["type"]=="image/jpeg") 
-        {
-            $uploadfile_nombre = ($maxid+1).'.jpg';
-
-        }
-        else if($foto["type"]=="image/pjpeg")
-        {
-            $uploadfile_nombre = ($maxid+1).'.jpeg';       
-       
-        }
-        else if($foto["type"]=="image/gif")
-        {
-            $uploadfile_nombre = ($maxid+1).'.gif';       
-
-        }
-        else if($foto["type"]=="image/png"){
-            $uploadfile_nombre = ($maxid+1).'.png';       
-
-        }
-
+            $ruta="fotos/noticias/";//ruta carpeta donde queremos copiar las imágenes
+            $uploadfile_temporal=$foto['tmp_name'];
+                
     
-        move_uploaded_file($uploadfile_temporal, $ruta.$uploadfile_nombre);
+            if($foto["type"]=="image/jpeg") 
+            {
+                $uploadfile_nombre = ($maxid+1).'.jpg';
+    
+            }
+            else if($foto["type"]=="image/pjpeg")
+            {
+                $uploadfile_nombre = ($maxid+1).'.jpeg';       
+           
+            }
+            else if($foto["type"]=="image/gif")
+            {
+                $uploadfile_nombre = ($maxid+1).'.gif';       
+    
+            }
+            else if($foto["type"]=="image/png"){
+                $uploadfile_nombre = ($maxid+1).'.png';       
+    
+            }
+    
+        
+            move_uploaded_file($uploadfile_temporal, $ruta.$uploadfile_nombre);
+        }else{
+            $uploadfile_nombre = $foto;
+        }
+        
         
         $CI =& get_instance();
-        $CI->db->insert('noticias', array(
-            'asunto'=>$noticia['asunto'],
-            'contenido'=>$noticia['contenido'],
-            'foto'=>$uploadfile_nombre,
-            'fecha'=>date('Y-m-d')
-        ));
+
+        if(isset($noticia['id_noticia'])){
+            $CI->db->replace('noticias', array(
+                'id_noticia'=>$noticia['id_noticia'],
+                'asunto'=>$noticia['asunto'],
+                'contenido'=>$noticia['contenido'],
+                'foto'=>$uploadfile_nombre,
+                'fecha'=>date('Y-m-d')
+            ));
+        }else{
+            $CI->db->replace('noticias', array(
+                'asunto'=>$noticia['asunto'],
+                'contenido'=>$noticia['contenido'],
+                'foto'=>$uploadfile_nombre,
+                'fecha'=>date('Y-m-d')
+            ));
+        }
+
         
+        
+    }
+
+    public function borrar_noticia($id_noticia){
+        
+        $CI =& get_instance();
+        $CI->db
+        ->delete('noticias', array('id_noticia' => $id_noticia));
     }
     
 

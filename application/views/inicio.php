@@ -17,7 +17,6 @@ $base = base_url('base');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="<?=$base;?>/js/fotos.inicio.js"></script>
 	<link href="<?=$base;?>/css/fotos.inicio.css" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 <!-- SLIDER -->

@@ -97,6 +97,41 @@ class Galeria_model extends CI_Model {
         
     }
 
+    public function guardar_galeria($galeria){
+        $nombre = $galeria['nombre'];
+        $fotos = $galeria['fotos'];
+        $descripcion = $galeria['descripcion'];
+
+        $cont = 1;
+        
+        $CI =& get_instance();
+        $CI->db
+        ->insert('galerias', array(
+            'nombre'=>$nombre,
+            'descripcion'=>$descripcion
+        ));
+        $id_galeria = $CI->db->insert_id();
+
+        for ($i=0; $i < count($fotos['name']); $i++) { 
+            $foto=array(
+                'tmp_name'=>$fotos['tmp_name'][$i],
+                'type'=>$fotos['type'][$i]
+            );
+            $foto = guardarFoto($foto, $id_galeria.'_'.$cont, 'galerias');
+
+            $reg = array(
+                'id_galeria'=>$id_galeria,
+                'visitas'=>0,
+                'foto'=>$foto
+            );
+
+            $CI =& get_instance();
+            $CI->db
+            ->replace('fotos_galerias', $reg);
+            $cont++;
+        }
+    }
+
 }
 
 /* End of file Galeria_model.php */

@@ -18,12 +18,12 @@ class Slider_model extends CI_Model {
     public function guardarSlides($slides){
         $texto = $slides['texto'];
         $slides = $slides['slides'];
-        var_dump($texto);
 
         $cont = 1;
-
+        
+        $CI =& get_instance();
+        $CI->db->truncate('slider');
         for ($i=0; $i < count($slides['name']); $i++) { 
-            // var_dump($slides['type'][$i]);
             $foto=array(
                 'tmp_name'=>$slides['tmp_name'][$i],
                 'type'=>$slides['type'][$i]
@@ -42,11 +42,6 @@ class Slider_model extends CI_Model {
             $cont++;
 
         }
-            
-
-
-        
-        
     }
     
 }

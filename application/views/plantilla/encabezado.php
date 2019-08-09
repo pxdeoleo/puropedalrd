@@ -12,7 +12,7 @@ $base = base_url('base');
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Agency - Start Bootstrap Theme</title>
+  <title>Puro Pedal RD</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -53,7 +53,7 @@ $base = base_url('base');
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('galerias')?>">Galerias</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('galerias')?>">Galería</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url('noticias')?>">Noticias</a>
