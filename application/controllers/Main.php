@@ -10,6 +10,7 @@ class Main extends CI_Controller {
         $this->load->model('slider_model');
         $this->load->model('eventos_model');
         $this->load->model('galeria_model');
+        $this->load->model('anuncios_model');
 
         $this->load->view('inicio');
         

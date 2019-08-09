@@ -36,13 +36,16 @@ class Eventos_model extends CI_Model {
 
     public function getEvento($id){
         $CI =& get_instance();
-        $evento = $CI->
-        db->
-        where('id_evento', $id)
+        $evento = $CI->db
+        ->where('id_evento', $id)
         ->get('eventos')
         ->result_array();
 
         return $evento;
+    }
+
+    public function newEvento($evento, $foto){
+        
     }
 
 }

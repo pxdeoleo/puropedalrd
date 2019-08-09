@@ -147,6 +147,7 @@ NOTICIA;
 					?>
 				</div>
 			</div>
+
 			<div class="col-3 ml-auto">
 				<a href="eventos"><h4>Próximos Eventos</h4></a>
 				<hr>
@@ -172,8 +173,44 @@ NOTICIA;
 						<br>
 EVENTO;
 					}	
+				?>		
+			</div>
+		</div>
+	</div>
+
+<div class="container">
+		<div class="row">
+			<div class="col-9">
+			
+			</div>
+
+			<div class="col-3">
+			<a href="anuncios"><h4>Anuncios</h4></a>
+				<hr>
+				<!-- Próximos anuncios -->
+			<?php
+					date_default_timezone_set('America/Santo_Domingo');
+					setlocale(LC_TIME, 'es_ES.UTF-8');
+					$anuncios = $this->anuncios_model->ultAnuncios();
+					foreach ($anuncios as $clave => $anuncio) {
+						$descripcion = $contenido = substr($anuncio['descripcion'], 0, 25);
+						$fecha = strftime("%d/%B/%Y", strtotime($anuncio['fecha']));
+						$rutaanuncio = base_url('anuncios/ver/').$anuncio['id_anuncio'];
+						# code...
+						echo<<<ANUNCIO
+						<div class="card">
+							<div class="card-body">
+								<img class="card-img-top" src="fotos/anuncios/{$anuncio['foto']}" alt="Card image cap">
+								<h5 class="card-title">{$anuncio['titulo']}</h5>
+								<a href='{$rutaanuncio}'class="btn btn-sm btn-primary">Detalles</a>
+								{$fecha}
+							</div>
+						</div>
+						<br>
+ANUNCIO;
+					}	
 				?>
-				
+			
 			</div>
 		</div>
 	</div>
@@ -182,7 +219,7 @@ EVENTO;
 </body>
 
 <style>
-	.d-block {
+	.view img {
 		width:100%;
 		height:100%;
 		object-fit: cover;

@@ -6,8 +6,16 @@ class Admin extends CI_Controller {
 
     public function index()
     {
-        $this->load->model('admin_model');
+        redirect(base_url('admin/sliders'));
+    }
+
+    public function mensajes(){
+        $this->load->model('mensajes_model');
+
+        $this->load->view('mensajes');
         $this->load->view('admin');
+        
+        
     }
 
     public function noticias(){
@@ -70,7 +78,65 @@ class Admin extends CI_Controller {
         redirect();
     }
 
+    public function agregar_evento(){
+        $this->load->model('eventos_model');
+        
+        $this->load->view('agregar_evento');
+        $this->load->view('admin');
+        
+    }
 
+    public function add_grupo()
+    {
+        $this->load->view('add_grupo');
+    }
+    
+    public function editar_grupo($id=0)
+    {
+        $this->load->view('editar_grupo', ['id_grupo' =>$id]);
+    }
+
+    public function borrar_grupo($id=0)
+    {
+        Grupo_model::borrar_grupo($id);
+        redirect('grupo/index');
+    }
+
+    public function ver_grupos()
+    {
+        $this->load->view('show_grupo');
+        
+    }
+
+    public function verEventos()
+    {
+        $this->load->model('eventos_model');
+        $data = array(
+            'eventos' => $this->eventos_model->getEventos()
+        );
+        $this->load->view('eventos', $data);
+    }
+
+    public function verEvento($id){
+        $this->load->model('eventos_model');
+        
+        $data= array(
+            'evento' => $this->eventos_model->getEvento($id)
+        );
+
+        $this->load->view('ver_evento', $data);
+        $this->load->view('plantilla/comentarios');
+
+    }
+
+    public function editar_evento()
+    {
+        $this->load->model('eventos_model');
+        $this->load->view('eventos');
+
+        // $this->load->view('editar_evento',['id_evento',$id_evento]);
+        // $this->load->view('plantilla/comentarios');
+    }
 
 }
 

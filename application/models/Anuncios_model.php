@@ -29,8 +29,20 @@ public function anuncios_x_id($id){
     
     return $anuncio;
 }
+
+public function ultAnuncios(){
+    $CI =& get_instance();
+
+    $anuncio = $CI->db
+    ->limit(3)
+    ->order_by('fecha', 'DESC')
+    ->get('anuncios')
+    ->result_array();
     
-public function guardarNoticia($anuncio, $foto){
+    return $anuncio;
+}
+    
+public function guardarAnuncio($anuncio, $foto){
     // if($_FILES["archivo"]["type"][$i]=="image/jpeg" || $_FILES["archivo"]["type"][$i]=="image/pjpeg" || $_FILES["archivo"]["type"][$i]=="image/gif" || $_FILES["archivo"]["type"][$i]=="image/png"){
     date_default_timezone_set ('America/Santo_Domingo');
     $CI =& get_instance();
@@ -59,10 +71,10 @@ public function guardarNoticia($anuncio, $foto){
 
     }
 
-
     move_uploaded_file($uploadfile_temporal, $ruta.$uploadfile_nombre);
     
     $CI =& get_instance();
+    var_dump($anuncio);
     $CI->db->insert('anuncios', array(
         'provincia'=>$anuncio['provincia'],
         'telefono'=>$anuncio['telefono'],

@@ -44,7 +44,6 @@ INPUT;
         $disabled='';
         $checked='';
 
-
         if($etiqueta){
             $regreso = <<<INPUT
         <label>{$label}:</label>

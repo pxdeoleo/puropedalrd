@@ -35,7 +35,6 @@ $rutafotos = base_url('fotos');
         <!-- Galerias -->
         <div class="wrap">
         <?php
-        <?php
             $galerias = $this->galeria_model->getGalerias();
             for ($i=0; $i < count($galerias); $i++) { 
                 # code...   
